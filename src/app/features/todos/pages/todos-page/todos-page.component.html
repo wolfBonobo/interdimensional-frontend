@@ -1,0 +1,17 @@
+<main>
+  <h2>Example feature: Container / Presenter</h2>
+  <p class="subtitle">
+    This page is a <strong>Container</strong> that delegates UI to multiple
+    <strong>Presenter</strong> components.
+  </p>
+
+  <app-todos-stats [todos]="todos$ | async"></app-todos-stats>
+
+  <app-todos-list
+    [todos]="todos$ | async"
+    [loading]="(loading$ | async) ?? false"
+    (toggle)="onToggle($event)"
+    (remove)="onRemove($event)"
+  >
+  </app-todos-list>
+</main>

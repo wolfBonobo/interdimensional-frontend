@@ -1,0 +1,18 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "prettier.requireConfig": true,
+
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+
+  "angular.useWorkspaceTsdk": true,
+
+  "files.exclude": {
+    "**/dist": true,
+    "**/out-tsc": true,
+    "**/node_modules": true
+  }
+}

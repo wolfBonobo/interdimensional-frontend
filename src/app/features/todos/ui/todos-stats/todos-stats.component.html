@@ -1,0 +1,9 @@
+<section *ngIf="total > 0">
+  <p><strong>Total:</strong> {{ total }}</p>
+  <p><strong>Completed:</strong> {{ completed }}</p>
+  <p><strong>Pending:</strong> {{ pending }}</p>
+</section>
+
+<section *ngIf="total === 0">
+  <p>No todos yet. Add some tasks to see stats.</p>
+</section>
