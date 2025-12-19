@@ -1,0 +1,32 @@
+<div class="min-h-screen bg-gray-900 p-8">
+  <header class="mb-12 border-l-4 border-blue-500 pl-6">
+    <h1 class="text-5xl font-black text-white tracking-tight uppercase italic">
+      Location <span class="text-blue-500">Database</span>
+    </h1>
+    <p class="text-gray-500 font-mono mt-2 tracking-widest text-sm italic">
+      Tracking Planetary Coordinates | Page: {{ facade.currentPage$ | async }}
+    </p>
+  </header>
+
+  @if (facade.loading$ | async) {
+    <div class="flex flex-col items-center justify-center py-20">
+      <div
+        class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
+      ></div>
+    </div>
+  }
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    @for (location of facade.locations$ | async; track location.id) {
+      <app-location-card [location]="location"></app-location-card>
+    }
+  </div>
+
+  @if ((facade.locations$ | async)?.length) {
+    <app-pagination
+      [currentPage]="(facade.currentPage$ | async) || 1"
+      (pageChange)="onPageChange($event)"
+    >
+    </app-pagination>
+  }
+</div>

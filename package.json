@@ -1,12 +1,12 @@
 {
-  "name": "angular-container-presenter-blueprint",
+  "name": "interdimensional-frontend",
   "version": "1.0.0",
-  "description": "Angular 18 template implementing the Container/Presenter pattern with a feature-based architecture.",
+  "description": "Scalable Angular frontend for the Rick & Morty Interdimensional Microservice. Strictly enforces the Container/Presenter architecture to visualize characters, locations, and episodes without collapsing the timeline.",
   "license": "MIT",
   "author": "wolfBonobo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wolfBonobo/angular-container-presenter-blueprint.git"
+    "url": "git+https://github.com/wolfBonobo/interdimensional-frontend.git"
   },
   "scripts": {
     "ng": "ng",
@@ -34,13 +34,16 @@
     "@angular/cli": "^18.2.21",
     "@angular/compiler-cli": "^18.2.0",
     "@types/jasmine": "~5.1.0",
+    "autoprefixer": "^10.4.23",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "postcss": "^8.5.6",
     "prettier": "^3.7.3",
+    "tailwindcss": "^3.4.19",
     "typescript": "~5.5.2"
   }
 }

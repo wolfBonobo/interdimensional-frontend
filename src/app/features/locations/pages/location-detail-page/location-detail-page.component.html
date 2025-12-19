@@ -1,0 +1,50 @@
+<div class="min-h-screen bg-gray-900 p-8 text-white">
+  <nav class="mb-12">
+    <button
+      routerLink="/locations"
+      class="text-blue-500 font-bold uppercase tracking-widest text-xs hover:text-blue-400 italic"
+    >
+      ← Return to Galaxy Map
+    </button>
+  </nav>
+
+  @if (facade.selectedLocation$ | async; as loc) {
+    <header class="mb-12 border-l-4 border-blue-500 pl-8">
+      <h1 class="text-6xl font-black uppercase italic tracking-tighter">{{ loc.name }}</h1>
+      <div class="mt-4 flex gap-6 font-mono text-gray-400 text-sm uppercase tracking-widest">
+        <span
+          >Type: <span class="text-blue-400">{{ loc.type }}</span></span
+        >
+        <span
+          >Dimension: <span class="text-blue-400">{{ loc.dimension }}</span></span
+        >
+      </div>
+    </header>
+
+    <main>
+      <h2
+        class="text-3xl font-black uppercase italic tracking-tighter text-green-500 mb-8 border-b border-gray-800 pb-4"
+      >
+        Known Residents
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        @for (resident of facade.residents$ | async; track resident.id) {
+          <app-character-card [character]="resident"></app-character-card>
+        } @empty {
+          @if (facade.loading$ | async) {
+            <div class="col-span-full py-20 text-center animate-pulse text-blue-500 font-mono">
+              SCANNING FOR LIFE FORMS...
+            </div>
+          } @else {
+            <div
+              class="col-span-full py-20 text-center border-2 border-dashed border-gray-800 rounded-3xl"
+            >
+              <p class="text-gray-600 font-mono italic">[ NO RESIDENTS DETECTED ]</p>
+            </div>
+          }
+        }
+      </div>
+    </main>
+  }
+</div>

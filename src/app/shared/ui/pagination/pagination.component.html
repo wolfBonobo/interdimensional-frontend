@@ -1,0 +1,23 @@
+<div class="flex justify-center items-center space-x-6 py-10">
+  <button
+    (click)="pageChange.emit(currentPage - 1)"
+    [disabled]="currentPage === 1"
+    class="px-6 py-2 bg-gray-800 text-white rounded-full border border-gray-700 hover:border-green-500 disabled:opacity-30 disabled:hover:border-gray-700 transition-all font-bold"
+  >
+    ← PREVIOUS
+  </button>
+
+  <div class="flex flex-col items-center">
+    <span class="text-[10px] text-gray-500 uppercase tracking-widest font-black"
+      >Dimension Page</span
+    >
+    <span class="text-2xl text-green-500 font-mono font-black">{{ currentPage }}</span>
+  </div>
+
+  <button
+    (click)="pageChange.emit(currentPage + 1)"
+    class="px-6 py-2 bg-gray-800 text-white rounded-full border border-gray-700 hover:border-green-500 transition-all font-bold"
+  >
+    NEXT →
+  </button>
+</div>

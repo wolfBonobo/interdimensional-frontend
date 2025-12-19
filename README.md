@@ -1,114 +1,113 @@
-# Angular Container/Presenter Blueprint
+# 🌌 Interdimensional App - Rick & Morty Monitoring Hub
 
-A template repository for building **scalable Angular applications** using a clean **Container/Presenter architecture**, feature-based structure, and strict separation between UI and business logic.
-
-This blueprint defines **clear architectural boundaries** that scale well for medium and large Angular frontends.
+This project is a high-performance monitoring dashboard built with **Angular 18**, designed to track the Rick & Morty multiverse. It implements a domain-driven architecture with a fully reactive data flow.
 
 ---
 
-## 🧱 Architecture Overview
+## 🚀 Architecture & Patterns
 
-This template implements the **Container / Presenter Pattern** with explicit layers per feature.
+The application follows the **WolfBonobo Blueprints**, ensuring a strict separation of concerns:
 
-### Page Components (Containers / Smart)
-
-- Route-level components.
-- Handle orchestration, navigation, and data flow.
-- Inject facades and interact with the router.
-- Do **not** contain UI logic.
-
-Example:
-
-```
-features/todos/pages/todos-page/
-```
-
----
-
-### UI Components (Presenters / Dumb)
-
-- Pure presentational components.
-- Stateless and reusable.
-- Receive data via `@Input()`.
-- Emit events via `@Output()`.
-- No business logic, no services, no router.
-
-Example:
-
-```
-features/todos/ui/todos-list/
-features/todos/ui/todos-stats/
-```
-
----
-
-### Domain Layer
-
-- Pure TypeScript.
-- Business language only (models, types, rules).
-- No Angular or framework dependencies.
-
-Example:
-
-```
-features/todos/domain/
-```
-
----
-
-### Data-Access Layer
-
-- Facades + services.
-- Facade is the **single entry point** for feature state and logic.
-- Services encapsulate HTTP or external APIs.
-
-Example:
-
-```
-features/todos/data-access/
-```
+- **Container/Presenter Pattern**: Pages act as "Smart Components" (Containers) that orchestrate state and data fetching. UI components are "Dumb Components" (Presenters), focused solely on rendering.
+- **Layered Feature Folders**: Every feature (`Characters`, `Locations`, `Episodes`) is encapsulated into four distinct layers:
+  1. **Domain**: Pure TypeScript interfaces and models (No Angular dependencies).
+  2. **Data Access**: Services for HTTP communication and **Facades** for state management.
+  3. **UI**: Reusable presentational components (Cards, Lists).
+  4. **Pages**: Route-level components managed via _Lazy Loading_.
+- **Reactive State Management (RxJS)**: State is managed using `BehaviorSubject` within Facades, providing a robust stream-based architecture that ensures UI synchronization via the `AsyncPipe`.
+- **Hexagonal Backend Integration**: Fully synchronized with a Spring Boot Microservice implementing Hexagonal Architecture and CQRS.
 
 ---
 
 ## 📁 Project Structure
 
+The project follows a **Feature-Based Layered Architecture**, strictly separating business logic from UI presentation:
+
 ```text
 src/app/
- ├─ core/                          # Global services, interceptors, guards
- ├─ shared/                        # Reusable UI and utilities
- │   ├─ ui/                        # Generic presentational components
- │   ├─ directives/
- │   └─ pipes/
- └─ features/
-     └─ todos/                     # Example feature
-         ├─ domain/
-         │   └─ todo.model.ts
-         ├─ data-access/
-         │   ├─ todos.facade.ts
-         │   ├─ todos.service.ts
-         │   └─ *.spec.ts
-         ├─ pages/
-         │   └─ todos-page/
-         │       ├─ todos-page.component.ts
-         │       ├─ todos-page.component.html
-         │       ├─ todos-page.component.css
-         │       └─ todos-page.component.spec.ts
-         └─ ui/
-             ├─ todos-list/
-             └─ todos-stats/
+├── core/                        # Global "Singleton" layer
+│   ├── auth/                    # Authentication guards and logic
+│   ├── http/                    # HTTP configuration
+│   │   └── api-config.ts        # Centralized API Base URL
+│   ├── layout/                  # Core layout components (Shell, Footer)
+│   └── settings/                # Global app settings
+├── shared/                      # Reusable cross-feature layer
+│   ├── directives/              # Global custom directives
+│   ├── pipes/                   # Global data transformation pipes
+│   └── ui/                      # Stateless shared components
+│       ├── navbar/              # Main navigation hub
+│       └── pagination/          # Reusable navigation control
+└── features/                    # Business Domain layer (L1, L2, L3 features)
+    ├── characters/              # Character Management Feature
+    │   ├── data-access/         # Services & Facades (State & API)
+    │   ├── domain/              # Lighter-than-air TS Interfaces
+    │   ├── pages/               # Smart Components (Route Containers)
+    │   └── ui/                  # Dumb Components (Presentational Cards/Lists)
+    ├── episodes/                # Episode Archive Feature
+    │   ├── data-access/         # Logic to resolve Characters in Episodes
+    │   ├── domain/              # Episode DTO definitions
+    │   ├── pages/               # Episode list and detail containers
+    │   └── ui/                  # Episode-specific UI components
+    └── locations/               # Location Index Feature
+        ├── data-access/         # Location-specific state management
+        ├── domain/              # Location data models
+        ├── pages/               # Location route handlers
+        └── ui/                  # Presentational location cards
 ```
 
 ---
 
+### 4. API and Setup
+
+The application consumes data from the local **Hexagonal Microservice**. You can find the backend source code here: [https://github.com/wolfBonobo/interdimensional-service](https://github.com/wolfBonobo/interdimensional-service)
+
+## 📡 API Endpoints
+
+The frontend communicates with the service at `http://localhost:8080/api/v1`:
+
+### 📜 List and Search
+
+| Resource       | Endpoint      | Query Parameters                                      |
+| :------------- | :------------ | :---------------------------------------------------- |
+| **Characters** | `/characters` | `page`, `name`, `status`, `species`, `type`, `gender` |
+| **Locations**  | `/locations`  | `page`, `name`, `type`, `dimension`                   |
+| **Episodes**   | `/episodes`   | `page`, `name`, `episodeCode`                         |
+
+### 🔍 Individual Resource Detail
+
+| Resource      | Endpoint           | Description                                |
+| :------------ | :----------------- | :----------------------------------------- |
+| **Character** | `/characters/{id}` | Retrieve profile for a specific subject    |
+| **Location**  | `/locations/{id}`  | Retrieve data for a specific sector        |
+| **Episode**   | `/episodes/{id}`   | Retrieve log for a specific timeline event |
+
+## 🔧 Installation & Setup
+
+1. **Clone the repository**:
+   ```bash
+   git clone [https://github.com/wolfBonobo/interdimensional-frontend.git](https://github.com/wolfBonobo/interdimensional-frontend.git)
+   ```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Launch the portal**:
+   ```bash
+   ng serve
+   ```
+   Navigate to `http://localhost:4200` to start monitoring the multiverse.
+
 ## 📏 Naming & File Conventions
 
-| Concept       | Pattern               | Example                   | Location                 |
-| ------------- | --------------------- | ------------------------- | ------------------------ |
-| **Container** | `*-page.component.ts` | `todos-page.component.ts` | `features/*/pages`       |
-| **Presenter** | `*.component.ts`      | `todos-list.component.ts` | `features/*/ui`          |
-| **Facade**    | `*.facade.ts`         | `todos.facade.ts`         | `features/*/data-access` |
-| **Service**   | `*.service.ts`        | `todos.service.ts`        | `features/*/data-access` |
-| **Model**     | `*.model.ts`          | `todo.model.ts`           | `features/*/domain`      |
+The project strictly follows these naming patterns to ensure architectural consistency across all interdimensional features:
+
+| Concept       | Pattern               | Example                        | Location                 |
+| ------------- | --------------------- | ------------------------------ | ------------------------ |
+| **Container** | `*-page.component.ts` | `characters-page.component.ts` | `features/*/pages`       |
+| **Presenter** | `*.component.ts`      | `character-card.component.ts`  | `features/*/ui`          |
+| **Facade**    | `*-facade.service.ts` | `characters-facade.service.ts` | `features/*/data-access` |
+| **Service**   | `*.service.ts`        | `characters.service.ts`        | `features/*/data-access` |
+| **Model**     | `*.ts`                | `character.ts`                 | `features/*/domain`      |
 
 ---
 
@@ -124,36 +123,6 @@ src/app/
 
 ---
 
-## 🧩 Example Feature: Todos
-
-### TodosPageComponent (Page / Container)
-
-- Loads todos
-- Injects `TodosFacade`
-- Handles user actions
-- Delegates rendering to UI components
-
-### TodosListComponent (UI / Presenter)
-
-- Displays todo list
-- Emits `toggle` and `remove` events
-
-### TodosStatsComponent (UI / Presenter)
-
-- Displays aggregated counters
-
-### TodosFacade
-
-- Orchestrates feature state
-- Connects pages with services
-- Encapsulates business logic
-
-### TodosService
-
-- Handles HTTP or mock API calls
-
----
-
 ## 📡 Development Commands
 
 ```bash
@@ -165,62 +134,12 @@ npm run build
 
 ---
 
-## ⚙️ Base Application Configuration
-
-- Standalone Angular application
-- Strict TypeScript enabled
-- Feature-based routing
-- Shared UI library (`shared/ui`)
-- Global styles in `styles.css`
-
----
-
-## 🧪 Testing Strategy
-
-### Unit Tests
-
-- UI components
-- Page components
-- Facades
-- Services
-
-### Integration Tests
-
-- Feature-level rendering
-- Page ↔ UI interaction
-
-### E2E (Optional)
-
-- Cypress or Playwright
-
----
-
-## 🚫 Dependency Rules (Non-Negotiable)
-
-- `ui/**` must not import `data-access/**`
-- `domain/**` must not import Angular
-- `core/**` must not depend on `features/**`
-- `pages/**` is the only smart layer
-
----
-
-## 🚀 Getting Started
-
-1. Click **Use this template**
-2. Clone the repository
-3. Install dependencies
-4. Use the Todos feature as reference
-
----
-
 ## 📚 Philosophy
 
 - Separate UI from logic
 - Make architecture explicit
 - Reduce cognitive load
 - Optimize for scale and maintainability
-
-If this template fails, statistically speaking, the issue is human-related.
 
 ---
 

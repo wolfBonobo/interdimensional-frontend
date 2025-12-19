@@ -1,0 +1,32 @@
+<nav class="bg-gray-800 border-b border-gray-700 px-8 py-4 sticky top-0 z-50 shadow-2xl">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <span class="text-2xl">🧪</span>
+      <span class="text-white font-black tracking-tighter text-xl uppercase">
+        Interdimensional <span class="text-green-500">Hub</span>
+      </span>
+    </div>
+
+    <div class="flex space-x-1">
+      @for (link of navLinks; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="bg-gray-900 text-green-400 border-green-500"
+          class="px-4 py-2 rounded-lg text-sm font-bold text-gray-400 hover:text-white hover:bg-gray-700 transition-all border-b-2 border-transparent"
+        >
+          <span class="mr-2">{{ link.icon }}</span>
+          {{ link.label }}
+        </a>
+      }
+    </div>
+
+    <div
+      class="hidden md:flex items-center space-x-2 bg-black/30 px-3 py-1 rounded-full border border-gray-700"
+    >
+      <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+      <span class="text-[10px] font-mono text-gray-400 uppercase tracking-tighter"
+        >TARS Online</span
+      >
+    </div>
+  </div>
+</nav>
